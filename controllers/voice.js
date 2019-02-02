@@ -18,7 +18,7 @@ module.exports = {
     }
 
     const voice = new VoiceResponse();
-    voice.say({ voice: 'woman' }, `9 1 1 SMS Service, sent from ${fromNumber}`);
+    voice.say({ voice: 'woman' }, `9 1 1 SMS Service, sent from ${fromNumber}.`);
     // TODO: add a pause
     voice.say({ voice: 'alice' }, smsReceived);
 
@@ -40,7 +40,7 @@ module.exports = {
     const fromNumber = req.query.from;
 
     const voice = new VoiceResponse();
-    voice.say({ voice: 'woman' }, `Update from ${fromNumber}`);
+    voice.say({ voice: 'woman' }, `Update received.`);
     // TODO: add a pause
     voice.say({ voice: 'alice' }, smsReceived);
 
@@ -63,7 +63,7 @@ module.exports = {
     // TODO: set pause to long ass time
     const voice = new VoiceResponse();
     voice.say({ voice: 'woman' }, 'Your message has been received and is being relayed back to the user via SMS. their response will be sent back to you.');
-    voice.pause({ length: 100 })
+    voice.pause({ length: 1000 })
     res.type('text/xml');
     res.send(voice.toString());
   }
