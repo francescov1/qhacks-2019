@@ -46,17 +46,15 @@ module.exports = {
   // 911 operator sent response, need to forward in sms format to user here
   respondToUser: function(req, res, next) {
     const message = req.body.SpeechResult;
-    const confidence = req.body.Confidence
 
     console.log('sending response from 911 to user');
-    console.log('confidence: ' + confidence);
     console.log('message: ' + message);
     console.log('current call sid: ' + process.env.call_sid)
 
     // send back sms to user and update operator that their message was received
     return Promise.all([
       client.messages.create({
-        body: `Message from 911 operator:\n${message}\n\nConfidence: ${confidence}`,
+        body: `Message from 911 operator:\n${message}`,
         from: config.twilio.sender_id,
         to: process.env.number
       }),
