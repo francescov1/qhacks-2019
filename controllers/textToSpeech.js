@@ -5,10 +5,11 @@ const client = require('twilio')(config.twilio.account_sid, config.twilio.auth_t
 module.exports = {
   post: function(req, res, next) {
     const phrase = req.query.phrase;
+    console.log(config.local_tunnel + `/api/voice?phrase=${phrase}`);
 
     client.calls.create({
       url: config.local_tunnel + `/api/voice?phrase=${phrase}`,
-      to: '+14164535790',
+      to: '+4164535790',
       from: config.twilio.sender_id
     })
     .then(call => res.status(200).send());
