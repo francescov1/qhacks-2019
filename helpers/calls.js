@@ -6,10 +6,11 @@ const querystring = require("querystring");
 module.exports = {
   initCall: function(smsReceived, fromNumber) {
 
-    smsReceived = querystring.stringify({ query: smsReceived });
+    query = querystring.stringify({ phrase: smsReceived, from: fromNumber });
+    console.log(query);
 
     return client.calls.create({
-      url: `${config.base_url}/api/voice/initialCallHandler?phrase=${smsReceived}&from=${fromNumber}`,
+      url: `${config.base_url}/api/voice/initialCallHandler?${query}`,
       to: config.emergency_number,
       from: config.twilio.sender_id
     });
