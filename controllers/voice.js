@@ -31,6 +31,11 @@ module.exports = {
 
   // send a confirmation message back to operator confirming their speech was relayed to the user
   confirmResponseToOperator: function(req, res, next) {
-    console.log('need to return xml to config to 911 operator that speech received')
+    console.log('sending confirmation to 911 operator of sent message');
+
+    const voice = new VoiceResponse();
+    voice.say({ voice: 'woman' }, 'Your message has been received and is being relayed back to the user via SMS. their response will be sent back to you.');
+    res.type('text/xml');
+    res.send(voice.toString());
   }
 }
