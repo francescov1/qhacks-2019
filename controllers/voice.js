@@ -30,7 +30,7 @@ module.exports = {
       finishOnKey: '#',
       hints: "emergency, location, danger"
     });
-    gather.say({ voice: 'woman' }, "Please say your response followed by the pound key:");
+    gather.say({ voice: 'woman' }, "Please give your response followed by the pound key:");
 
     res.type('text/xml');
     res.send(voice.toString());
@@ -51,7 +51,7 @@ module.exports = {
       finishOnKey: '#',
       hints: "emergency, location, danger"
     });
-    gather.say({ voice: 'woman' }, "Please say your response followed by the pound key:");
+    gather.say({ voice: 'woman' }, "Please give your response followed by the pound key:");
 
     res.type('text/xml');
     res.send(voice.toString());
@@ -63,7 +63,7 @@ module.exports = {
 
     // TODO: set pause to long ass time
     const voice = new VoiceResponse();
-    voice.say({ voice: 'woman' }, 'Your message has been received and is being relayed back to the user via SMS. their response will be sent back to you.');
+    voice.say({ voice: 'woman' }, 'Your message has been received and is being relayed back to the user via SMS.');
     voice.pause({ length: 1000 })
     res.type('text/xml');
     res.send(voice.toString());
