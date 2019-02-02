@@ -5,7 +5,6 @@ const client = require('twilio')(config.twilio.account_sid, config.twilio.auth_t
 module.exports = {
   post: function(req, res, next) {
     const phrase = req.query.phrase;
-    console.log(config.local_tunnel + `/api/voice?phrase=${phrase}`);
 
     client.calls.create({
       url: config.local_tunnel + `/api/voice?phrase=${phrase}`,
