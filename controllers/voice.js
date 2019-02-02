@@ -10,13 +10,15 @@ module.exports = {
     const fromNumber = req.query.from;
 
     const voice = new VoiceResponse();
-    voice.say({ voice: 'alice' }, `911 SMS Service, sent from :${fromNumber}`);
+    voice.say({ voice: 'woman' }, `911 SMS Service, sent from :${fromNumber}`);
+    // TODO: add a pause
+    voice.say({ voice: 'alice' }, smsReceived);
 
     const gather = voice.gather({
       input: 'speech',
       action: config.local_tunnel + '/api/sms/respond'
     });
-    gather.say(smsReceived);
+    gather.say({ voice: 'woman' }, "Please say your response followed by the pound key:");
 
     console.log(voice.toString());
 
