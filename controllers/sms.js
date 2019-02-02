@@ -25,8 +25,6 @@ module.exports = {
       const twiml = new MessagingResponse();
 
       // TODO: research info required and specify here
-      // TODO: may not want to reply, because if user sends another text
-      // while operator is hearing the first text the call flow may get weird (test this out)
       twiml.message('911 SMS Service:\n\nWe have received your message and are contacting 911. Find a safe location and turn your phone to silent if you are in a sound-sensitive situation. We will respond shortly.');
 
       // make a new call
