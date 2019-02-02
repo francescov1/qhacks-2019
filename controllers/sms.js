@@ -21,8 +21,14 @@ module.exports = {
     - Emergency status
     `);
 
-    // call textToSpeach
-
+    // check if a call is ongoing
+    if (process.env.call_sid) {
+      // update the call with new info
+      
+    } else {
+      // make a new call
+      
+    }
 
     res.writeHead(200, {'Content-Type': 'text/xml'});
     res.end(twiml.toString());
