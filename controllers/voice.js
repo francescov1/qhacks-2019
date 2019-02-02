@@ -8,6 +8,14 @@ module.exports = {
     const voice = new VoiceResponse();
     voice.say({ voice: 'alice' }, phrase);
 
+    const gather = voice.gather({
+      input: 'speech',
+      action: '/api/sms/respond'
+    });
+    gather.say('Operator ur mom gay');
+
+    console.log(response.toString());
+
     res.type('text/xml');
     res.send(voice.toString());
   }
