@@ -4,7 +4,9 @@ const client = require('twilio')(config.twilio.account_sid, config.twilio.auth_t
 
 module.exports = {
   post: function(req, res, next) {
-    const phrase = req.query.phrase;
+    let phrase = req.query.phrase;
+    while (phrase.includes(' '))
+      phrase = phrase.replace(' ', '%20');
 
     client.calls.create({
       url: config.local_tunnel + `/api/voice?phrase=${phrase}`,
