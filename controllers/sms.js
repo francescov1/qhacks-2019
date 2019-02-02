@@ -29,7 +29,7 @@ module.exports = {
       // TODO: research info required and specify here
       // TODO: may not want to reply, because if user sends another text
       // while operator is hearing the first text the call flow may get weird (test this out)
-      twiml.message('911 Text Service:\nWe have received your message and are contacting 911.');
+      twiml.message('911 SMS Service: \nWe have received your message and are contacting 911. Find a safe location and turn your phone to silent if you are in a sound-sensitive situation. We will respond shortly.');
 
       // make a new call
       return callHelper.initCall(message, process.env.number)
@@ -56,7 +56,7 @@ module.exports = {
     // send back sms to user and update operator that their message was received
     return Promise.all([
       client.messages.create({
-        body: `911 Operator: ${message}\n\nConfidence: ${confidence}`,
+        body: `Message from 911 operator:\n${message}\n\nConfidence: ${confidence}`,
         from: config.twilio.sender_id,
         to: process.env.number
       }),
