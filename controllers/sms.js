@@ -1,5 +1,6 @@
 'use strict';
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
+const client = require('../config/twilio');
 const callHelper = require('../helpers/calls');
 const config = require('../config');
 
@@ -54,6 +55,7 @@ module.exports = {
     const confidence = req.body.Confidence
 
     // TODO: send response to user
+
     console.log('sending response from 911 to user');
     console.log('confidence: ' + confidence);
     console.log('message: ' + message);

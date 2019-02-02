@@ -1,6 +1,6 @@
 'use strict';
 const config = require('../config');
-const client = require('twilio')(config.twilio.account_sid, config.twilio.auth_token);
+const client = require('../config/twilio');
 const querystring = require("querystring");
 
 module.exports = {
