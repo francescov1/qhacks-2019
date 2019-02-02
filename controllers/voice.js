@@ -10,7 +10,7 @@ module.exports = {
 
     const gather = voice.gather({
       input: 'speech',
-      action: '/api/sms/respond'
+      action: config.local_tunnel + '/api/sms/respond'
     });
     gather.say('Operator ur mom gay');
 
