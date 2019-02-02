@@ -7,10 +7,18 @@ module.exports = {
   // handler to specify what to say and record from 911 operator after first sms is sent
   initialCallHandler: function(req, res, next) {
     const smsReceived = req.query.phrase;
-    const fromNumber = req.query.from;
+    const fromNumberStr = req.query.from
+
+    let fromNumber = "";
+    for (let char of fromNumberStr) {
+      if (char === "+")
+        continue;
+
+      fromNumber += `${char} `
+    }
 
     const voice = new VoiceResponse();
-    voice.say({ voice: 'woman' }, `911 SMS Service, sent from ${fromNumber}`);
+    voice.say({ voice: 'woman' }, `9 1 1 SMS Service, sent from ${fromNumber}`);
     // TODO: add a pause
     voice.say({ voice: 'alice' }, smsReceived);
 
@@ -52,8 +60,10 @@ module.exports = {
   confirmResponseToOperator: function(req, res, next) {
     console.log('sending confirmation to 911 operator of sent message');
 
+    // TODO: set pause to long ass time
     const voice = new VoiceResponse();
     voice.say({ voice: 'woman' }, 'Your message has been received and is being relayed back to the user via SMS. their response will be sent back to you.');
+    voice.pause({ length: 100 })
     res.type('text/xml');
     res.send(voice.toString());
   }

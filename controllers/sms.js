@@ -14,6 +14,7 @@ module.exports = {
 
     // check if a call is ongoing
     if (process.env.call_sid) {
+      console.log('updating onging call')
       // update the call with new info
       return callHelper.updateCall(message, process.env.number)
         .then(call => {
@@ -22,7 +23,7 @@ module.exports = {
         .catch(err => next(err))
 
     } else {
-
+      console.log('starting new call')
       const twiml = new MessagingResponse();
 
       // TODO: research info required and specify here
@@ -62,9 +63,9 @@ module.exports = {
     // send back sms to user and update operator that their message was received
     return Promise.all([
       client.messages.create({
-        body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+        body: message,
         from: config.twilio.sender_id,
-        to: process.env.numbers
+        to: process.env.number
       }),
       client.calls(process.env.call_sid).update({
         method: 'POST',

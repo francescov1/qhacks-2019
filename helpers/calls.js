@@ -7,7 +7,6 @@ module.exports = {
   initCall: function(smsReceived, fromNumber) {
 
     const query = querystring.stringify({ phrase: smsReceived, from: fromNumber });
-    console.log(query);
 
     return client.calls.create({
       url: `${config.base_url}/api/voice/initialCallHandler?${query}`,
@@ -18,9 +17,11 @@ module.exports = {
 
   updateCall: function(smsReceived, fromNumber) {
 
+    const query = querystring.stringify({ phrase: smsReceived, from: fromNumber });
+
     return client.calls(process.env.call_sid).update({
       method: 'POST',
-      url: `${config.base_url}/api/voice/updateCallHandler?phrase=${smsReceived}&from=${fromNumber}`
+      url: `${config.base_url}/api/voice/updateCallHandler?${query}`
     });
   }
 }
