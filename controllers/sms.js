@@ -54,18 +54,24 @@ module.exports = {
     const message = req.body.SpeechResult;
     const confidence = req.body.Confidence
 
-    // TODO: send response to user
-
     console.log('sending response from 911 to user');
     console.log('confidence: ' + confidence);
     console.log('message: ' + message);
-
     console.log('current call sid: ' + process.env.call_sid)
-    return client.calls(process.env.call_sid).update({
-      method: 'POST',
-      url: `${config.base_url}/api/voice/confirmResponseToOperator`
-    })
-    .then(call => {
+
+    // send back sms to user and update operator that their message was received
+    return Promise.all([
+      client.messages.create({
+        body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+        from: config.twilio.sender_id,
+        to: process.env.numbers
+      }),
+      client.calls(process.env.call_sid).update({
+        method: 'POST',
+        url: `${config.base_url}/api/voice/confirmResponseToOperator`
+      })
+    ])
+    .then(results => {
       return res.send();
     })
     .catch(err => next(err));

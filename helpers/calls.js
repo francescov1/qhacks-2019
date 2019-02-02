@@ -6,7 +6,7 @@ const querystring = require("querystring");
 module.exports = {
   initCall: function(smsReceived, fromNumber) {
 
-    query = querystring.stringify({ phrase: smsReceived, from: fromNumber });
+    const query = querystring.stringify({ phrase: smsReceived, from: fromNumber });
     console.log(query);
 
     return client.calls.create({
