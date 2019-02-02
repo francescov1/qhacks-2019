@@ -11,30 +11,40 @@ module.exports = {
     const message = req.body.Body;
     console.log('message: ' + message);
 
-    const twiml = new MessagingResponse();
-
-    twiml.message(`911 Text Service:\n
-  We have received your message and are contacting 911.
-
-  Please ensure you have provided the following information:
-    - Address
-    - Current situation
-    - Emergency status
-    `);
-
     // check if a call is ongoing
     if (process.env.call_sid) {
       // update the call with new info
+      return callHelper.updateCall(message, process.env.number)
+        .then(call => {
+          return res.end()
+        })
+        .catch(err => next(err))
 
     } else {
+
+      const twiml = new MessagingResponse();
+
+      // TODO: research info required and specify here
+      // TODO: may not want to reply, because if user sends another text
+      // while operator is hearing the first text the call flow may get weird (test this out)
+      twiml.message(`911 Text Service:\n
+    We have received your message and are contacting 911.
+
+    Please ensure you have provided the following information:
+      - Address
+      - Current situation
+      - Emergency status
+      `);
+
       // make a new call
-      callHelper.initCall(message, process.env.number)
+      return callHelper.initCall(message, process.env.number)
         .then(call => {
           process.env.call_sid = call.sid;
 
           res.writeHead(200, {'Content-Type': 'text/xml'});
           res.end(twiml.toString());
-        });
+        })
+        .catch(err => next(err))
     }
   },
 
@@ -49,12 +59,14 @@ module.exports = {
     console.log('message: ' + message);
 
     console.log('current call sid: ' + process.env.call_sid)
-    return client.calls(process.env.call_sid)
-      .update({ method: 'POST', url: config.base_url + '/api/voice/confirmResponseToOperator' })
-      .then(call => {
-        return res.send();
-      })
-      .catch(err => next(err));
+    return client.calls(process.env.call_sid).update({
+      method: 'POST',
+      url: `${config.base_url}/api/voice/confirmResponseToOperator`
+    })
+    .then(call => {
+      return res.send();
+    })
+    .catch(err => next(err));
   }
 
 }

@@ -10,7 +10,7 @@ module.exports = {
     const fromNumber = req.query.from;
 
     const voice = new VoiceResponse();
-    voice.say({ voice: 'woman' }, `911 SMS Service, sent from :${fromNumber}`);
+    voice.say({ voice: 'woman' }, `911 SMS Service, sent from ${fromNumber}`);
     // TODO: add a pause
     voice.say({ voice: 'alice' }, smsReceived);
 
@@ -23,7 +23,26 @@ module.exports = {
     });
     gather.say({ voice: 'woman' }, "Please say your response followed by the pound key:");
 
-    // TODO: add voice that says: ur message has been recorded and is being replayed back
+    res.type('text/xml');
+    res.send(voice.toString());
+  },
+
+  updateCallHandler: function(req, res, next) {
+    const smsReceived = req.query.phrase;
+    const fromNumber = req.query.from;
+
+    const voice = new VoiceResponse();
+    voice.say({ voice: 'woman' }, `Update from ${fromNumber}`);
+    // TODO: add a pause
+    voice.say({ voice: 'alice' }, smsReceived);
+
+    const gather = voice.gather({
+      input: 'speech',
+      action: config.base_url + '/api/sms/respond',
+      finishOnKey: '#',
+      hints: "emergency, location, danger"
+    });
+    gather.say({ voice: 'woman' }, "Please say your response followed by the pound key:");
 
     res.type('text/xml');
     res.send(voice.toString());
