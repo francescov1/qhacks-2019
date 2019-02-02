@@ -15,7 +15,7 @@ module.exports = {
     });
     gather.say('Operator ur mom gay');
 
-    console.log(response.toString());
+    console.log(voice.toString());
 
     res.type('text/xml');
     res.send(voice.toString());
