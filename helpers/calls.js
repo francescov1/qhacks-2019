@@ -10,7 +10,7 @@ module.exports = {
       smsReceived = smsReceived.replace(' ', '%20');
 
     return client.calls.create({
-      url: config.local_tunnel + `/api/voice/initialCallHandler?phrase=${smsReceived}&from=${fromNumber}`,
+      url: config.base_url + `/api/voice/initialCallHandler?phrase=${smsReceived}&from=${fromNumber}`,
       to: config.emergency_number,
       from: config.twilio.sender_id
     })

@@ -17,7 +17,7 @@ module.exports = {
     // TODO: add exact phrase we are expecting from 911 operator after sms sent to them
     const gather = voice.gather({
       input: 'speech',
-      action: config.local_tunnel + '/api/sms/respond',
+      action: config.base_url + '/api/sms/respond',
       finishOnKey: '#',
       hints: "emergency, location, danger"
     });
@@ -31,6 +31,11 @@ module.exports = {
 
   // send a confirmation message back to operator confirming their speech was relayed to the user
   confirmResponseToOperator: function(req, res, next) {
-    
+    console.log('sending confirmation to 911 operator of sent message');
+
+    const voice = new VoiceResponse();
+    voice.say({ voice: 'woman' }, 'Your message has been received and is being relayed back to the user via SMS. their response will be sent back to you.');
+    res.type('text/xml');
+    res.send(voice.toString());
   }
 }

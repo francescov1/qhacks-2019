@@ -1,6 +1,7 @@
 'use strict';
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const callHelper = require('../helpers/calls');
+const config = require('../config');
 
 module.exports = {
 
@@ -37,18 +38,20 @@ module.exports = {
 
   // 911 operator sent response, need to forward in sms format to user here
   respondToUser: function(req, res, next) {
-    console.log('received response from 911, sending back to user')
-    console.log(req.body)
-
     const message = req.body.SpeechResult;
     const confidence = req.body.Confidence
 
-    return client.calls(process.env.sid)
-      .update({ method: 'POST', url: 'http://demo.twilio.com/docs/voice.xml'})
-      .then(call => console.log(call.to))
-      .done();
+    // TODO: send response to user
+    console.log('sending response from 911 to user');
+    console.log('confidence: ' + confidence);
+    console.log('message: ' + message);
 
-    return res.send();
+    return client.calls(process.env.callSid)
+      .update({ method: 'POST', url: config.base_url + '/api/voice/confirmResponseToOperator' })
+      .then(call => {
+        return res.send();
+      })
+      .catch(err => next(err));
   }
 
 }
