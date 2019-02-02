@@ -2,8 +2,8 @@
 const VoiceResponse = require('twilio').twiml.VoiceResponse;
 
 module.exports = {
-  getVoice: function(req, res, next) {
-    const phrase = req.query.phrase;
+  postVoice: function(req, res, next) {
+    const phrase = req.body.phrase;
 
     const voice = new VoiceResponse();
     voice.say({ voice: 'alice' }, phrase);
