@@ -8,9 +8,13 @@ module.exports = {
 
     client.calls.create({
       url: config.local_tunnel + `/api/voice?phrase=${phrase}`,
-      to: '+4164535790',
+      to: '+14164535790',
       from: config.twilio.sender_id
     })
-    .then(call => res.status(200).send());
+    .then(call => {
+      console.log(call.sid);
+      return res.status(200).send()
+    })
+    .catch(err => next(err));
   }
 }
