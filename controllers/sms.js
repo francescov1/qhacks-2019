@@ -30,6 +30,8 @@ module.exports = {
       // make a new call
       callHelper.initCall(message, process.env.number)
         .then(call => {
+          process.env.call_sid = call.sid;
+
           res.writeHead(200, {'Content-Type': 'text/xml'});
           res.end(twiml.toString());
         });
