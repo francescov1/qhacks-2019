@@ -68,7 +68,7 @@ module.exports = {
     res.send(voice.toString());
   },
 
-  statusCallBack: function(req, res, next){
-	console.log(req.body);
+  statusCallBack: function(req, res, next) {
+	  console.log(req.body);
   }
 }
