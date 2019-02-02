@@ -29,7 +29,7 @@ module.exports = {
       // TODO: research info required and specify here
       // TODO: may not want to reply, because if user sends another text
       // while operator is hearing the first text the call flow may get weird (test this out)
-      twiml.message(`911 Text Service:\n
+      twiml.message(`9 1 1 Text Service:\n
     We have received your message and are contacting 911.
 
     Please ensure you have provided the following information:
