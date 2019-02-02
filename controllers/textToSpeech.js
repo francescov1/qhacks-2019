@@ -14,7 +14,6 @@ module.exports = {
       from: config.twilio.sender_id
     })
     .then(call => {
-      console.log(call.sid);
       return res.status(200).send()
     })
     .catch(err => next(err));
