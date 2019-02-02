@@ -4,10 +4,11 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 module.exports = {
 
   receiveSms: function(req, res, next) {
-
-    console.log(req.headers)
-    console.log(req.body)
-
+    process.env.number = req.body.From;
+    process.env.sid = req.body.SmsMessageSid;
+    const message = req.body.Body;
+    console.log('message: ' + message);
+    
     const twiml = new MessagingResponse();
 
     twiml.message(`911 Text Service:\n
