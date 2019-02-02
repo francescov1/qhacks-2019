@@ -31,11 +31,13 @@ module.exports = {
 
   // 911 operator sent response, need to forward in sms format to user here
   respondToUser: function(req, res, next) {
-    console.log('received response from 911, sending back to user')
-    console.log(req.body)
-
     const message = req.body.SpeechResult;
     const confidence = req.body.Confidence
+
+    // TODO: send response to user
+    console.log('sending response from 911 to user');
+    console.log('confidence: ' + confidence);
+    console.log('message: ' + message);
 
     return client.calls(process.env.callSid)
       .update({ method: 'POST', url: config.base_url + '/api/voice/confirmResponseToOperator' })
