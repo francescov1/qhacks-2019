@@ -18,5 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 router(app);
 
 app.listen(config.port, () => {
-  console.log(`server listening on port ${config.port}...`)
+  console.log(`server listening on port ${config.port}...`);
+  console.log(`environment: ${config.node_env}`);
+  console.log(`base url: ${config.base_url}`);
 });

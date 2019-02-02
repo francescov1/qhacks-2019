@@ -8,6 +8,7 @@ echo ""
 echo "================================================== building docker image =================================================="
 gcloud builds submit --tag "gcr.io/$project/$image" . --project $project
 
+# TODO: restart one vm rather than group
 # restart instances (this loads new images)
 echo ""
 echo "================================================== restarting vm group =================================================="

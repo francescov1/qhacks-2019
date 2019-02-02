@@ -8,9 +8,7 @@ module.exports = {
 
   receiveSms: function(req, res, next) {
     process.env.number = req.body.From;
-    process.env.sms_sid = req.body.SmsMessageSid;
     const message = req.body.Body;
-    console.log('message: ' + message);
 
     // check if a call is ongoing
     if (process.env.call_sid) {
@@ -29,7 +27,7 @@ module.exports = {
       // TODO: research info required and specify here
       // TODO: may not want to reply, because if user sends another text
       // while operator is hearing the first text the call flow may get weird (test this out)
-      twiml.message('911 SMS Service: \nWe have received your message and are contacting 911. Find a safe location and turn your phone to silent if you are in a sound-sensitive situation. We will respond shortly.');
+      twiml.message('911 SMS Service:\n\nWe have received your message and are contacting 911. Find a safe location and turn your phone to silent if you are in a sound-sensitive situation. We will respond shortly.');
 
       // make a new call
       return callHelper.initCall(message, process.env.number)
@@ -48,13 +46,11 @@ module.exports = {
     const message = req.body.SpeechResult;
 
     console.log('sending response from 911 to user');
-    console.log('message: ' + message);
-    console.log('current call sid: ' + process.env.call_sid)
 
     // send back sms to user and update operator that their message was received
     return Promise.all([
       client.messages.create({
-        body: `Message from 911 operator:\n${message}`,
+        body: `Message from 911 operator:\n\n${message}`,
         from: config.twilio.sender_id,
         to: process.env.number
       }),

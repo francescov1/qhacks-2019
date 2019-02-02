@@ -73,10 +73,14 @@ module.exports = {
     if (req.body.CallStatus !== 'completed')
       return res.send();
 
+    const number = process.env.number;
+    delete process.env.number;
+    delete process.env.call_sid;
+
     return client.messages.create({
       body: 'The 911 operator ended the call. If you believe this was a mistake, please reply and a new call will be initiated.',
       from: config.twilio.sender_id,
-      to: process.env.number
+      to: number
     })
     .then(message => {
       delete process.env.number;
