@@ -4,10 +4,13 @@ const config = require('./config');
 const express = require('express');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
+const logger = require('morgan');
 
 const router = require('./router.js');
 
 const app = express();
+
+app.use(logger('dev'));
 
 app.use(helmet());
 app.use(bodyParser.json());
