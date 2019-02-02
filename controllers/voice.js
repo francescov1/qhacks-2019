@@ -69,7 +69,7 @@ module.exports = {
     res.send(voice.toString());
   },
 
-  statusCallBack: function(req, res, next){
+  statusCallBack: function(req, res, next) {
     if (req.body.CallStatus !== 'completed')
       return res.send();
 
