@@ -27,12 +27,12 @@ module.exports = {
       
     } else {
       // make a new call
-      
+      callHelper.initCall(message, process.env.number)
+        .then({
+          res.writeHead(200, {'Content-Type': 'text/xml'});
+          res.end(twiml.toString());
+        });
     }
-
-    res.writeHead(200, {'Content-Type': 'text/xml'});
-    res.end(twiml.toString());
-
   },
 
   // 911 operator sent response, need to forward in sms format to user here
