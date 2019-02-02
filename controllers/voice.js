@@ -19,16 +19,15 @@ module.exports = {
     }
 
     const voice = new VoiceResponse();
+    voice.pause({ length: 2 })
     voice.say({ voice: 'woman' }, `9 1 1 SMS Service, sent from ${fromNumber}.`);
-    // TODO: add a pause
     voice.say({ voice: 'alice' }, smsReceived);
 
-    // TODO: add exact phrase we are expecting from 911 operator after sms sent to them
     const gather = voice.gather({
       input: 'speech',
       action: config.base_url + '/api/sms/respond',
       finishOnKey: '#',
-      hints: "emergency, location, danger"
+      hints: "please provide me with your name and current location, we will send help immediately"
     });
     gather.say({ voice: 'woman' }, "Please give your response followed by the pound key:");
 
@@ -49,7 +48,7 @@ module.exports = {
       input: 'speech',
       action: config.base_url + '/api/sms/respond',
       finishOnKey: '#',
-      hints: "emergency, location, danger"
+      hints: "police is on the way, sit tight and try not to make any noise, is there anything we should know to enter the home"
     });
     gather.say({ voice: 'woman' }, "Please give your response followed by the pound key:");
 

@@ -2,7 +2,6 @@
 const express = require('express');
 const smsRoutes = require('./routes/sms');
 const voiceRoutes = require('./routes/voice');
-const textToSpeechRoutes = require('./routes/textToSpeech');
 const errorMiddleware = require('./errors/middleware');
 
 module.exports = function(app) {
@@ -10,7 +9,6 @@ module.exports = function(app) {
   const apiRouter = express.Router();
   apiRouter.use('/sms', smsRoutes);
   apiRouter.use('/voice', voiceRoutes);
-  apiRouter.use('/tts', textToSpeechRoutes);
 
   // mount api router on to app
   app.use('/api', apiRouter);
