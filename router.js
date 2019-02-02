@@ -1,6 +1,6 @@
 'use strict';
 const express = require('express');
-const smsRoutes = require('./routes/examples');
+const smsRoutes = require('./routes/sms');
 const errorMiddleware = require('./errors/middleware');
 
 module.exports = function(app) {
