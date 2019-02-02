@@ -13,6 +13,7 @@ module.exports = {
 
     return callHelper.initCall(smsReceived, fromNumber)
       .then(call => {
+        console.log(call);
         return res.status(200).send()
       })
       .catch(err => next(err));
