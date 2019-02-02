@@ -29,7 +29,7 @@ module.exports = {
     } else {
       // make a new call
       callHelper.initCall(message, process.env.number)
-        .then({
+        .then(call => {
           res.writeHead(200, {'Content-Type': 'text/xml'});
           res.end(twiml.toString());
         });
