@@ -66,5 +66,9 @@ module.exports = {
     voice.pause({ length: 1000 })
     res.type('text/xml');
     res.send(voice.toString());
+  },
+
+  statusCallBack: function(req, res, next){
+	console.log(req.body);
   }
 }

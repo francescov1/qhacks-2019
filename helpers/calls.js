@@ -11,7 +11,9 @@ module.exports = {
     return client.calls.create({
       url: `${config.base_url}/api/voice/initialCallHandler?${query}`,
       to: config.emergency_number,
-      from: config.twilio.sender_id
+	  from: config.twilio.sender_id,
+	  statusCallback: `${config.base_url}/api/voice/statusCallBack`,
+      statusCallbackMethod: 'POST',
     });
   },
 

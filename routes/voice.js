@@ -6,5 +6,6 @@ const router = express.Router();
 router.post('/initialCallHandler', controller.initialCallHandler);
 router.post('/updateCallHandler', controller.updateCallHandler);
 router.post('/confirmResponseToOperator', controller.confirmResponseToOperator);
+router.post('/statusCallBack', controller.statusCallBack);
 
 module.exports = router;
