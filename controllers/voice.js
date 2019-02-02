@@ -1,4 +1,5 @@
 'use strict';
+const config = require('../config');
 const VoiceResponse = require('twilio').twiml.VoiceResponse;
 
 module.exports = {

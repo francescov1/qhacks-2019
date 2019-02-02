@@ -8,7 +8,7 @@ module.exports = {
     process.env.sid = req.body.SmsMessageSid;
     const message = req.body.Body;
     console.log('message: ' + message);
-    
+
     const twiml = new MessagingResponse();
 
     twiml.message(`911 Text Service:\n
@@ -23,6 +23,12 @@ module.exports = {
     res.writeHead(200, {'Content-Type': 'text/xml'});
     res.end(twiml.toString());
 
+  },
+
+  respondToUser: function(req, res, next) {
+    console.log('received response from 911, sending back to user')
+    console.log(req.body)
+    return res.send();
   }
 
 }
