@@ -7,7 +7,7 @@ module.exports = {
 
   receiveSms: function(req, res, next) {
     process.env.number = req.body.From;
-    process.env.smsSid = req.body.SmsMessageSid;
+    process.env.sms_sid = req.body.SmsMessageSid;
     const message = req.body.Body;
     console.log('message: ' + message);
 
@@ -25,7 +25,7 @@ module.exports = {
     // check if a call is ongoing
     if (process.env.call_sid) {
       // update the call with new info
-      
+
     } else {
       // make a new call
       callHelper.initCall(message, process.env.number)
@@ -46,7 +46,8 @@ module.exports = {
     console.log('confidence: ' + confidence);
     console.log('message: ' + message);
 
-    return client.calls(process.env.callSid)
+    console.log('current call sid: ' + process.env.call_sid)
+    return client.calls(process.env.call_sid)
       .update({ method: 'POST', url: config.base_url + '/api/voice/confirmResponseToOperator' })
       .then(call => {
         return res.send();
