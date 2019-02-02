@@ -14,9 +14,12 @@ module.exports = {
     // TODO: add a pause
     voice.say({ voice: 'alice' }, smsReceived);
 
+    // TODO: add exact phrase we are expecting from 911 operator after sms sent to them
     const gather = voice.gather({
       input: 'speech',
-      action: config.local_tunnel + '/api/sms/respond'
+      action: config.local_tunnel + '/api/sms/respond',
+      finishOnKey: '#',
+      hints: "emergency, location, danger"
     });
     gather.say({ voice: 'woman' }, "Please say your response followed by the pound key:");
 
