@@ -4,9 +4,9 @@ const client = require('twilio')(config.twilio.account_sid, config.twilio.auth_t
 
 client.calls
       .create({
-         url: 'http://demo.twilio.com/docs/voice.xml',
-         to: '+123456789',
-         from: '+987654321'
+         url: 'https://handler.twilio.com/twiml/EH618b34cbf9ed6c026dd6d189389e1f28',
+         to: '+14039928497',
+         from: config.twilio.sender_id
        })
       .then(call => console.log(call.sid))
       .done();
